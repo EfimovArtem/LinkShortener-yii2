@@ -30,7 +30,7 @@ class UrlManager
     {
 
         if (!$oModel instanceof ShortLinkForm) {
-            throw new Exception('"$model" не является экземпляром класса "ShortLinkForm"');
+            throw new Exception('"$oModel" is not an instance of a class "ShortLinkForm"');
         }
         $oModel->sUrl = (strpos($oModel->sUrl, '://') === false) ? 'http://' . $oModel->sUrl : $oModel->sUrl;
 
