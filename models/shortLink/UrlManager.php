@@ -79,19 +79,19 @@ class UrlManager
 
     }
 
-    public static function generateCode($iteration = 0)
+    public static function generateCode()
     {
-        $iteration++;
-        if ($iteration > 10) {
-            throw new Exception('Unable to shorten the link, try again');
-        }
-
+        $i = 0;
         $sCode = NULL;
-        $sCode = substr(str_shuffle(self::$sChars), 1, 6);
-        $oModelShortCode = ShortCode::find()->where(['sc_code' => $sCode])->one();
-        if (!is_null($oModelShortCode)) {
-            self::generateCode($iteration);
+ 
+        while (++$i < 10) {
+            $sCode = substr(str_shuffle(self::$sChars), 1, 6);
+            $oModelShortCode = ShortCode::find()->where(['sc_code' => $sCode])->one();
+            if (is_null($oModelShortCode)) {
+                return $sCode;
+            }
         }
-        return $sCode;
+ 
+       throw new Exception('Unable to shorten the link, try again');
     }
 }
